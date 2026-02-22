@@ -21,6 +21,11 @@ const mainContainer = document.querySelector("main");
 const filterSection = document.getElementById("filter-section");
 
 
+const emptyAll = document.getElementById("emptyAll");
+const emptyInterview = document.getElementById("emptyInterview");
+const emptyRejected = document.getElementById("emptyRejected");
+
+
 window.addEventListener("DOMContentLoaded", () => {
     totalJobs = document.querySelectorAll("#allCards .card").length;
     calculate();
@@ -153,23 +158,40 @@ mainContainer.addEventListener("click", function (event) {
         const parentNode = event.target.closest(".card");
         const companyName = parentNode.querySelector(".companyName").innerText;
 
-     
+
         interviewList = interviewList.filter(item => item.companyName != companyName);
 
-  
+
         rejectedList = rejectedList.filter(item => item.companyName != companyName);
 
-    
+
         parentNode.remove();
 
-       
+        checkAllEmpty();
+        calculate();
+
+
     }
-
-
 })
+
+function checkAllEmpty() {
+    if (allCardSection.children.length === 0) {
+        emptyAll.classList.remove("hidden");
+    } else {
+        emptyAll.classList.add("hidden");
+    }
+}
 
 function renderInterview() {
     filterSection.innerHTML = "";
+
+    emptyInterview.classList.add("hidden");
+
+    if (interviewList.length === 0) {
+        filterSection.appendChild(emptyInterview);
+        emptyInterview.classList.remove("hidden");
+        return;
+    }
 
     for (let item of interviewList) {
         console.log(item);
@@ -212,6 +234,12 @@ function renderInterview() {
 
 function renderRejected() {
     filterSection.innerHTML = "";
+    emptyRejected.classList.add("hidden");
+    if (rejectedList.length === 0) {
+        filterSection.appendChild(emptyRejected);
+        emptyRejected.classList.remove("hidden");
+        return;
+    }
 
     for (let item of rejectedList) {
         let div = document.createElement("div");

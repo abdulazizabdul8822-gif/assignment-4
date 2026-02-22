@@ -58,6 +58,7 @@
             <h2 class="text-2xl font-semibold">Available Jobs</h2>
             <p class="text-gray-500"><span id="outOfCount">0</span>jobs</p>
         </div>
+
         <div class="mb-8 flex flex-wrap gap-3">
             <button onclick="toggleStyle('all-filter-btn')" class=" bg-blue-500 text-amber-50 px-10 py-2 rounded-md"
                 id="all-filter-btn">All</button>
@@ -70,8 +71,26 @@
         </div>
 
         <section id="filter-section" class=" hidden">
-
+            <div id="emptyInterview" class="text-center py-10">
+                <img src="./images/jobs.png" class=" mx-auto" alt="">
+                <h2 class=" text-xl font-semibold">No interview jobs</h2>
+                <p class="text-gray-500 mt-2">You haven't marked any jobs as interview yet</p>
+            </div>
+            <div id="emptyRejected" class="text-center py-10">
+                <img src="./images/jobs.png" class=" mx-auto" alt="">
+                <h2 class="text-xl font-semibold">No rejected jobs</h2>
+                <p class="text-gray-500 mt-2">
+                    You haven't rejected any jobs yet
+                </p>
+            </div>
         </section>
+
+
+        <div id="emptyAll" class=" hidden text-center py-20  border-[#F1F2F4] bg-white rounded-2xl p-6">
+            <img src=".//images/jobs.png" class=" mx-auto" alt="">
+            <h2 class="text-xl font-semibold">No jobs available</h2>
+            <p class="text-gray-500 mt-2">Check back soon for new job opportunities</p>
+        </div>
 
 
         <section id="allCards" class=" space-y-8">
