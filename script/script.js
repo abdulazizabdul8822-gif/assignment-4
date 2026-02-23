@@ -36,7 +36,7 @@ function calculate() {
     interview.innerText = interviewCount;
     rejected.innerText = rejectedCount;
 
-   
+
     if (currentStatus === "all-filter-btn") {
         const moved = interviewCount + rejectedCount;
         outOfCount.innerText = `${moved} out of ${totalCards} jobs`;
@@ -91,15 +91,34 @@ function toggleStyle(id) {
 mainContainer.addEventListener("click", function (event) {
 
 
+    // NOTE: The status color matching feature below was implemented for testing purposes.
+    // It was not part of the assignment requirements, so it has been commented out.
+    const card = event.target.closest(".card");
+    if (!card) return;
+    const statusElement = card.querySelector(".status");
+    if (event.target.closest(".interview-btn")) {
+        card.classList.remove(
+            "border-l-red-500", "border-l-gray-300",
+            "border-t-red-500", "border-t-gray-300",
+            "border-b-red-500", "border-b-gray-300"
+        );
+        card.classList.add(
+            "border-l-green-500",
+            "border-t-green-500",
+            "border-b-green-500"
+        );
+        statusElement.innerText = "Interview";
+        statusElement.classList.remove(
+            "bg-[#EEF4FF]", "text-[#002C5C]",
+            "bg-red-100", "text-red-600"
+        );
 
-    if (event.target.classList.contains("interview-btn")) {
-        const parentNode = event.target.closest(".card");
-        const companyName = parentNode.querySelector(".companyName").innerText;
-        const positionName = parentNode.querySelector(".position").innerText;
-        const jobName = parentNode.querySelector(".job").innerText;
-        const notes = parentNode.querySelector(".notes").innerText;
-
-        parentNode.querySelector(".status").innerText = "Interview";
+        statusElement.classList.add("bg-green-100", "text-green-600");
+        const companyName = card.querySelector(".companyName").innerText;
+        const positionName = card.querySelector(".position").innerText;
+        const jobName = card.querySelector(".job").innerText;
+        const notes = card.querySelector(".notes").innerText;
+        card.querySelector(".status").innerText = "Interview";
 
 
 
@@ -125,15 +144,25 @@ mainContainer.addEventListener("click", function (event) {
 
     }
 
+    // NOTE: The status color matching feature below was implemented for testing purposes.
+    // It was not part of the assignment requirements, so it has been commented out.
     else if (event.target.classList.contains("rejected-btn")) {
-        const parentNode = event.target.closest(".card");
-        const companyName = parentNode.querySelector(".companyName").innerText;
-        const positionName = parentNode.querySelector(".position").innerText;
-        const jobName = parentNode.querySelector(".job").innerText;
-        const statusName = parentNode.querySelector(".status").innerText;
-        const notes = parentNode.querySelector(".notes").innerText;
-
-        parentNode.querySelector(".status").innerText = "Rejected";
+        const card = event.target.closest(".card");
+        card.classList.remove("border-l-green-500", "border-l-gray-300",
+            "border-t-green-500", "border-t-gray-300", "border-b-green-500", "border-b-gray-300"
+        );
+        card.classList.add("border-l-red-500", "border-t-red-500", "border-b-red-500");
+        statusElement.innerText = "Rejected";
+        statusElement.classList.remove(
+            "bg-[#EEF4FF]", "text-[#002C5C]",
+            "bg-green-100", "text-green-600"
+        );
+        statusElement.classList.add("bg-red-100", "text-red-600");
+        const companyName = card.querySelector(".companyName").innerText;
+        const positionName = card.querySelector(".position").innerText;
+        const jobName = card.querySelector(".job").innerText;
+        const notes = card.querySelector(".notes").innerText;
+        card.querySelector(".status").innerText = "Rejected";
 
 
 
@@ -174,10 +203,10 @@ mainContainer.addEventListener("click", function (event) {
 
         parentNode.remove();
 
-        if(currentStatus == "interview-filter-btn"){
+        if (currentStatus == "interview-filter-btn") {
             renderInterview();
         }
-        else if(currentStatus == "rejected-filter-btn"){
+        else if (currentStatus == "rejected-filter-btn") {
             renderRejected();
         }
 
