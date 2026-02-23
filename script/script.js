@@ -2,7 +2,7 @@ let totalJobs = 0;
 let interviewList = [];
 let rejectedList = [];
 
-let currentStatus = "all";
+let currentStatus = "all-filter-btn";
 
 const outOfCount = document.getElementById("outOfCount");
 let total = document.getElementById("total");
@@ -26,20 +26,27 @@ const emptyInterview = document.getElementById("emptyInterview");
 const emptyRejected = document.getElementById("emptyRejected");
 
 
-window.addEventListener("DOMContentLoaded", () => {
-    totalJobs = document.querySelectorAll("#allCards .card").length;
-    calculate();
-});
-
-
 function calculate() {
-    total.innerText = allCardSection.children.length;
-    interview.innerText = interviewList.length;
-    rejected.innerText = rejectedList.length;
 
-    const moved = interviewList.length + rejectedList.length;
-    outOfCount.innerText = `${moved} out of ${totalJobs}`;
+    const totalCards = allCardSection.querySelectorAll(".card").length;
+    const interviewCount = interviewList.length;
+    const rejectedCount = rejectedList.length;
 
+    total.innerText = totalCards;
+    interview.innerText = interviewCount;
+    rejected.innerText = rejectedCount;
+
+   
+    if (currentStatus === "all-filter-btn") {
+        const moved = interviewCount + rejectedCount;
+        outOfCount.innerText = `${moved} out of ${totalCards} jobs`;
+    }
+    else if (currentStatus === "interview-filter-btn") {
+        outOfCount.innerText = `${interviewCount} jobs`;
+    }
+    else if (currentStatus === "rejected-filter-btn") {
+        outOfCount.innerText = `${rejectedCount} jobs`;
+    }
 }
 calculate();
 
@@ -77,6 +84,7 @@ function toggleStyle(id) {
         filterSection.classList.remove("hidden");
         renderRejected();
     }
+    calculate();
 }
 
 
@@ -89,7 +97,6 @@ mainContainer.addEventListener("click", function (event) {
         const companyName = parentNode.querySelector(".companyName").innerText;
         const positionName = parentNode.querySelector(".position").innerText;
         const jobName = parentNode.querySelector(".job").innerText;
-        // const statusName = parentNode.querySelector(".status").innerText;
         const notes = parentNode.querySelector(".notes").innerText;
 
         parentNode.querySelector(".status").innerText = "Interview";
@@ -119,7 +126,7 @@ mainContainer.addEventListener("click", function (event) {
     }
 
     else if (event.target.classList.contains("rejected-btn")) {
-        const parentNode = event.target.parentNode.parentNode;
+        const parentNode = event.target.closest(".card");
         const companyName = parentNode.querySelector(".companyName").innerText;
         const positionName = parentNode.querySelector(".position").innerText;
         const jobName = parentNode.querySelector(".job").innerText;
@@ -166,6 +173,14 @@ mainContainer.addEventListener("click", function (event) {
 
 
         parentNode.remove();
+
+        if(currentStatus == "interview-filter-btn"){
+            renderInterview();
+        }
+        else if(currentStatus == "rejected-filter-btn"){
+            renderRejected();
+        }
+
 
         checkAllEmpty();
         calculate();
