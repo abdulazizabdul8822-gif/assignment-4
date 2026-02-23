@@ -55,6 +55,7 @@ function toggleStyle(id) {
     allFilterBtn.classList.remove("bg-blue-500", "text-amber-50");
     interviewFilterBtn.classList.remove("bg-blue-500", "text-amber-50");
     rejectedFilterBtn.classList.remove("bg-blue-500", "text-amber-50");
+    
 
 
     allFilterBtn.classList.add("bg-[#FFFFFF]", "text-[#64748B]");
@@ -64,7 +65,7 @@ function toggleStyle(id) {
 
 
     const selected = document.getElementById(id)
-
+    
     currentStatus = id;
 
     selected.classList.remove("bg-[#FFFFFF]", "text-[#64748B]");
