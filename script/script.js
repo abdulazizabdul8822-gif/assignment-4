@@ -92,8 +92,7 @@ function toggleStyle(id) {
 mainContainer.addEventListener("click", function (event) {
 
 
-    // NOTE: The status color matching feature below was implemented for testing purposes.
-    // It was not part of the assignment requirements, so it has been commented out.
+    // This part is not mentioned in the requirements, it is just for experimentation.
     const card = event.target.closest(".card");
     if (!card) return;
     const statusElement = card.querySelector(".status");
@@ -145,9 +144,8 @@ mainContainer.addEventListener("click", function (event) {
 
     }
 
-    // NOTE: The status color matching feature below was implemented for testing purposes.
-    // It was not part of the assignment requirements, so it has been commented out.
-    else if (event.target.classList.contains("rejected-btn")) {
+     // This part is not mentioned in the requirements, it is just for experimentation.
+    else if (event.target.closest(".rejected-btn")) {
         const card = event.target.closest(".card");
         card.classList.remove("border-l-green-500", "border-l-gray-300",
             "border-t-green-500", "border-t-gray-300", "border-b-green-500", "border-b-gray-300"
